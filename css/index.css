@@ -71,10 +71,15 @@ img{display: block;}
     right: 0;
     bottom: 0;
     background: palegreen;
-
+    overflow: hidden;
 }
 .contentMain{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
     height: 500%;
+    transition:top 1s;
 }
 
 .contentMain>li{
