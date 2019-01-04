@@ -1,0 +1,623 @@
+/* reset css */
+html,body{height: 100%;overflow: hidden}
+html,body,h1,h2,h3,h4,h5,h6,p,ul,li{margin: 0px;padding: 0px;font: 14px "微软雅黑";}
+a{text-decoration: none;display: block;cursor: pointer;}
+li{list-style: none;}
+img{display: block;}
+
+/*清除浮动*/
+.clearfix{*zoom: 1;}
+.clearfix:after{content: "";display: block;clear: both;}
+
+/*公共样式*/
+.commonTitle{
+  color:#009ee0;
+  font-size:80px;
+  line-height:0.8;
+  font-weight:bold;
+  letter-spacing:-5px;
+}
+.commonText{
+  color:white;
+  line-height:1.5;
+  font-size:15px;
+}
+
+/*头部样式*/
+#wrap{
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#header{
+  position: relative;
+  width: 100%;
+  height: 80px;
+}
+#header .headerMain{
+  width: 1100px;
+  height: 100%;
+  margin: 0 auto;
+}
+#header .headerMain .logo{
+  float: left;
+  margin-top: 15px;
+}
+#header .headerMain .nav{
+  float: right;
+  margin-top: 50px;
+}
+#header .headerMain .nav li{
+  position: relative;
+  float: left;
+  margin-left: 40px;
+}
+#header .headerMain .nav li .down{
+  color: #009EE0;
+}
+#header .headerMain .nav li .up{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  overflow: hidden;
+  transition: width 1s;
+}
+/*
+  隐藏元素的方式
+    1. width height 0
+    2. opacity 0
+    3. visibility hidden
+    4. display none
+    5. transform scale(0)
+    6. position left -10000px
+ */
+#header .headerMain .nav li:hover .up{
+  /*width: 100%!important;*/
+  width: 100%;
+}
+/*小箭头*/
+#header .headerMain .arrow{
+  position: absolute;
+  z-index: 10;
+  left: 50%;
+  bottom: -11px;
+  width: 21px;
+  height: 11px;
+  background-image: url("../img/arrow.png");
+  background-repeat: no-repeat;
+  transition: left 1s;
+}
+
+/*内容区样式*/
+#content{
+  position: absolute;
+  top: 80px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  /*width: 100%;*/
+}
+#content .contentMain{
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 500%;
+  transition: top 1s;  /* 过渡效果要想生效，必须之前就存在过渡的那个属性 */
+}
+
+#content .contentMain>li{
+  position: relative;
+  width: 100%;
+  height: 20%;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+#content .contentMain>li>section{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -550px;
+  margin-top: -260px;
+  width: 1100px;
+  height: 520px;
+}
+
+#content .contentMain>li:nth-child(1){
+  background-image: url("../img/bg1.jpg");
+}
+#content .contentMain>li:nth-child(2){
+  background-image: url("../img/bg2.jpg");
+}
+#content .contentMain>li:nth-child(3){
+  background-image: url("../img/bg3.jpg");
+}
+#content .contentMain>li:nth-child(4){
+  background-image: url("../img/bg4.jpg");
+}
+#content .contentMain>li:nth-child(5){
+  background-image: url("../img/bg5.jpg");
+}
+
+/*第一屏样式*/
+#content .contentMain .home{}
+
+#content .contentMain .home .home_carousel{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: opacity 1s, transform 1s;
+}
+#content .contentMain .home .home_carousel li{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  color: #ffffff;
+  text-align: center;
+  line-height: 520px;
+  visibility: hidden;
+}
+#content .contentMain .home .home_carousel li.active{
+  visibility: visible;
+}
+
+#content .contentMain .home .home_carousel li:nth-child(1){
+  background:#dc6c5f;
+}
+#content .contentMain .home .home_carousel li:nth-child(2){
+  background:#95dc84;
+}
+#content .contentMain .home .home_carousel li:nth-child(3){
+  background:#64b9d2;
+}
+#content .contentMain .home .home_carousel li:nth-child(4){
+  background:#000000;
+}
+
+#content .contentMain .home .home_point{
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+#content .contentMain .home .home_point li{
+  float: left;
+  width: 20px;
+  height: 20px;
+  background: rgba(255,255,255,0.5);
+  margin: 2px;
+  box-shadow: 0 0 4px rgba(25,25,25,0.8);
+  border-radius: 50%;
+}
+#content .contentMain .home .home_point li.active{
+  background: #ffffff;
+}
+
+/*
+  点击左边的小圆点时：
+    左边：向左位移，旋转30deg，隐藏到显示
+    右边：向右位置，旋转-30deg，显示到隐藏
+ */
+
+@keyframes leftShow {
+  0%{visibility: hidden;transform: translateZ(-200px);}
+  50%{transform: translateX(-40%) rotateY(30deg) scale(.8)}
+  100%{visibility: visible}
+}
+
+@keyframes rightHide {
+  0%{visibility: visible}
+  50%{transform: translateX(40%) rotateY(-30deg) scale(.8)}
+  100%{transform: translateZ(-200px);visibility: hidden;}
+}
+
+#content .contentMain .home .home_carousel li.leftShow{
+  visibility: visible;
+  animation: leftShow 2s linear;
+}
+
+#content .contentMain .home .home_carousel li.rightHide{
+  visibility: hidden;
+  animation: rightHide 2s linear;
+}
+
+/*
+  点击右边的小圆点时：
+    左边：向左位移，旋转30deg，显示到隐藏
+    右边：向右位置，旋转-30deg，隐藏到显示
+ */
+
+@keyframes leftHide {
+  0%{visibility: visible}
+  50%{transform: translateX(-40%) rotateY(30deg) scale(.8)}
+  100%{transform: translateZ(-200px);visibility: hidden;}
+}
+
+@keyframes rightShow {
+  0%{visibility: hidden;transform: translateZ(-200px);}
+  50%{transform: translateX(40%) rotateY(-30deg) scale(.8)}
+  100%{visibility: visible}
+}
+
+#content .contentMain .home .home_carousel li.leftHide{
+  visibility: hidden;
+  animation: leftHide 2s linear;
+}
+
+#content .contentMain .home .home_carousel li.rightShow{
+  visibility: visible;
+  animation: rightShow 2s linear;
+}
+
+/* 第二屏样式 */
+#content .contentMain .course .course_title{
+  position: relative;
+  z-index: 5;
+  margin: 50px;
+}
+#content .contentMain .course .course_content{
+  position: relative;
+  z-index: 5;
+  width: 400px;
+  margin-left: 50px;
+}
+#content .contentMain .course .course_photo{
+  position: absolute;
+  z-index: 5;
+  right: 50px;
+  top: 70px;
+  width: 480px;
+}
+#content .contentMain .course .course_photo li{
+  position: relative;
+  float: left;
+  width: 120px;
+  height: 132px;
+}
+#content .contentMain .course .course_photo li .front{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("../img/pcwelt.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: transform 2s;
+  backface-visibility: hidden;  /*隐藏背面*/
+}
+
+#content .contentMain .course .course_photo li:hover .front{
+  transform: rotateY(180deg);
+}
+#content .contentMain .course .course_photo li .back{
+  width: 100%;
+  height: 100%;
+  background: #009ee0;
+  padding: 15px;
+  box-sizing: border-box;
+  transition: transform 2s;
+  transform: rotateY(180deg);
+  backface-visibility: hidden;  /*隐藏背面*/
+}
+#content .contentMain .course .course_photo li:hover .back{
+  transform: rotateY(360deg);
+}
+#content .contentMain .course .line{
+  position: absolute;
+  top: -5px;
+  width: 9px;
+  height: 410px;
+  background-image: url("../img/plus_row.png");
+  background-repeat: no-repeat;
+}
+#content .contentMain .course .line:nth-child(1){left: -6px;}
+#content .contentMain .course .line:nth-child(2){left: 114px;}
+#content .contentMain .course .line:nth-child(3){left: 234px;}
+#content .contentMain .course .line:nth-child(4){left: 354px;}
+#content .contentMain .course .line:nth-child(5){left: 474px;}
+
+/*music*/
+.music{
+  float: left;
+  width:14px;
+  height:14px;
+  margin:50px 0 0 5px;
+  cursor: pointer;
+  background-image: url('../img/musicon.gif');
+  background-repeat: no-repeat;
+}
+
+/* 飞机 */
+.plane1{ width:359px; height:283px; background:url(../img/plane1.png) no-repeat; position:absolute; left:300px; top:-100px; transition:1s;}
+.plane2{ width:309px; height:249px; background:url(../img/plane2.png) no-repeat; position:absolute; left:-100px; top:200px; transition:1s;}
+.plane3{ width:230px; height:182px; background:url(../img/plane3.png) no-repeat; position:absolute; left:300px; top:400px; transition:1s;}
+
+
+/* 第三屏 */
+#content .contentMain .works .works_title{
+  position: relative;
+  z-index: 5;
+  margin: 50px 0 100px 50px;
+}
+#content .contentMain .works .works_lists{
+  position: relative;
+  z-index: 5;
+  margin-left: 50px;
+}
+#content .contentMain .works .works_lists li{
+  position: relative;
+  float: left;
+  width: 220px;
+  height: 133px;
+  margin-right: 1px;
+  overflow: hidden;
+}
+#content .contentMain .works .works_lists li:last-child{
+  width: 332px;
+}
+#content .contentMain .works .works_lists .mask{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(25,25,25,0.8);
+  color: #ffffff;
+  padding: 10px;
+  box-sizing: border-box;
+  opacity: 0;
+  transition: opacity 1s;
+}
+#content .contentMain .works .works_lists .mask .icon{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 32px;
+  height: 34px;
+  background-image: url('../img/zoomico.png');
+  background-repeat: no-repeat;
+  transition: background-position 1s;
+}
+#content .contentMain .works .works_lists li img{
+  transition: transform 1s;
+}
+#content .contentMain .works .works_lists li:hover img{
+  transform: rotate(30deg) scale(1.5);
+}
+#content .contentMain .works .works_lists li:hover .mask{
+  opacity: 1;
+}
+#content .contentMain .works .works_lists li:hover .icon{
+  background-position: 0 -35px;
+}
+
+#content .contentMain .works .works_robot{
+  position: absolute;
+  z-index: 5;
+  left: 900px;
+  top: 170px;
+  width: 167px;
+  height: 191px;
+  background-image: url('../img/robot.png');
+  background-repeat: no-repeat;
+  animation: robotMove 5s linear infinite;
+}
+
+@keyframes robotMove {
+  0%{}
+  49%{transform: translateX(-400px)}
+  50%{transform: translateX(-400px) rotateY(180deg)}
+  100%{transform: rotateY(180deg)}
+}
+
+/* 笔 */
+.pencel1{ width:180px; height:97px; background:url(../img/pencel1.png) no-repeat; position:absolute; transition:1s; left:500px; top:0;}
+.pencel2{ width:268px; height:38px; background:url(../img/pencel2.png) no-repeat; position:absolute; transition:1s; left:300px; top:250px;}
+.pencel3{ width:441px; height:231px; background:url(../img/pencel3.png) no-repeat; position:absolute; transition:1s; left:650px; top:300px;}
+
+
+/* 第四屏 */
+#content .contentMain .about .about_title{
+  margin: 50px 0 100px 50px;
+}
+#content .contentMain .about .about_content{
+  width: 400px;
+  margin-left: 50px;
+}
+#content .contentMain .about .about_photo{
+  position: absolute;
+  z-index: 5;
+  width: 260px;
+  height: 200px;
+  border: 5px rgba(255,255,255,0.5) solid;
+  border-radius: 8px;
+  transition: transform 1s;
+}
+#content .contentMain .about .about_photo:nth-child(3){
+  left: 750px;
+  top: 50px;
+}
+#content .contentMain .about .about_photo:nth-child(4){
+  left: 600px;
+  top: 290px;
+}
+
+#content .contentMain .about .about_photo ul{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+#content .contentMain .about .about_photo ul li{
+  float: left;
+  width: 50%;
+  height: 50%;
+  overflow: hidden;
+}
+#content .contentMain .about .about_photo ul li div{
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  transition: transform 1s;
+}
+#content .contentMain .about .about_photo ul li:nth-child(1) div{
+  background-position: 0 0;
+}
+#content .contentMain .about .about_photo ul li:nth-child(2) div{
+  /*background-position: -130px 0;*/
+  background-position: 100% 0;
+}
+#content .contentMain .about .about_photo ul li:nth-child(3) div{
+  /*background-position: 0 -100px;*/
+  background-position: 0 100%;
+}
+#content .contentMain .about .about_photo ul li:nth-child(4) div{
+  /*background-position: -130px -100px;*/
+  background-position: 100% 100%;
+}
+
+#content .contentMain .about .about_photo:nth-child(3) ul li div{
+  background-image: url('../img/about1.jpg');
+}
+#content .contentMain .about .about_photo:nth-child(4) ul li div{
+  background-image: url('../img/about3.jpg');
+}
+
+/* 下 左 右 上 */
+#content .contentMain .about .about_photo ul:hover li:nth-child(1) div{
+  transform: translateY(100%);
+}
+#content .contentMain .about .about_photo ul:hover li:nth-child(2) div{
+  transform: translateX(-100%);
+}
+#content .contentMain .about .about_photo ul:hover li:nth-child(3) div{
+  transform: translateX(100%);
+}
+#content .contentMain .about .about_photo ul:hover li:nth-child(4) div{
+  transform: translateY(-100%);
+}
+#content .contentMain .about .line{
+  position: absolute;
+  left: 555px;
+  top: -12px;
+  width: 357px;
+  height: 998px;
+  background-image: url("../img/greenLine.png");
+  background-repeat: no-repeat;
+}
+
+/* 第五屏 */
+#content .contentMain .team .team_title{
+  float: left;
+  width: 400px;
+  margin: 50px;
+  transition: transform 1s;
+}
+#content .contentMain .team .team_content{
+  float: right;
+  width: 400px;
+  margin: 50px;
+  transition: transform 1s;
+}
+#content .contentMain .team .team_lists{
+  position: absolute;
+  top: 230px;
+  left: 50%;
+  margin-left: -472px;
+  width: 944px;
+  height: 448px;
+}
+#content .contentMain .team .team_lists li{
+  float: left;
+  width: 236px;
+  height: 100%;
+  background-image: url('../img/team.png');
+  background-repeat: no-repeat;
+}
+.team_lists li:nth-child(1){
+  background-position: 3px 0px;
+}
+.team_lists li:nth-child(2){
+  background-position: -230px 0px;
+}
+.team_lists li:nth-child(3){
+  background-position: -483px 0px;
+}
+.team_lists li:nth-child(4){
+  background-position: -710px 0px;
+}
+
+/* 侧边导航 */
+/*
+  css选择器：从右往左解析的
+  所有选择器都会开销（消耗一定时间、性能），选择器一旦多，开销大
+    选择器一般最多写3-4层左右
+ */
+/*#content .navBar li{}*/
+.navBar{
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.navBar li{
+  width: 15px;
+  height: 15px;
+  border: 1px solid white;
+  margin-top: 10px;
+  border-radius: 50%;
+}
+.navBar .active{
+  background: white;
+}
+
+/*开机动画样式*/
+.bootAnimation{
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  width: 100%;
+  height: 100%;
+}
+.bootAnimation .up{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: #009ee0;
+  transition: height 1s;
+}
+
+.bootAnimation .down{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: #009ee0;
+  transition: height 1s;
+}
+
+.bootAnimation .line{
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 0;
+  height: 4px;
+  background: #ffffff;
+  transition: width 1s;
+}
