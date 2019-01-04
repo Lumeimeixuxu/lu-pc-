@@ -9,7 +9,7 @@ window.addEventListener('DOMContentLoaded',function () {
     var contentNode=document.querySelector('#content');
     var contentHeight=contentNode.offsetHeight;
     var nowIndex=0;
-
+    var wheelTimer=null;
     headerHandle();
     function headerHandle() {
         //初始化时小箭头来到第一个li下面
@@ -44,42 +44,44 @@ window.addEventListener('DOMContentLoaded',function () {
     document.addEventListener('DOMMouseScroll',wheel);
     function wheel(event) {
         event = event || window.event;
+        clearTimeout(wheelTimer)
+        wheelTimer=setTimeout(function () {
+           var flag = '';
+           if (event.wheelDelta) {
+               //ie/chrome
+               if (event.wheelDelta > 0) {
+                   flag = 'up';
+               } else {
+                   flag = 'down'
+               }
+           } else if (event.detail) {
+               //firefox
+               if (event.detail < 0) {
+                   flag = 'up';
+               } else {
+                   flag = 'down'
+               }
+           }
 
-        var flag = '';
-        if (event.wheelDelta) {
-            //ie/chrome
-            if (event.wheelDelta > 0) {
-                flag = 'up';
-            } else {
-                flag = 'down'
-            }
-        } else if (event.detail) {
-            //firefox
-            if (event.detail < 0) {
-                flag = 'up';
-            } else {
-                flag = 'down'
-            }
-        }
+           switch (flag) {
+               case 'up' :
+                   if(nowIndex>0){
+                       nowIndex--;
+                       move(nowIndex);
+                   }
 
-        switch (flag) {
-            case 'up' :
-                if(nowIndex>0){
-                    nowIndex--;
-                   move(nowIndex);
-                }
+                   console.log('up');
+                   break;
+               case 'down' :
+                   console.log('down');
+                   if(nowIndex<4){
+                       nowIndex++;
+                       move(nowIndex);
+                   }
+                   break;
+           }
 
-                console.log('up');
-                break;
-            case 'down' :
-                console.log('down');
-                if(nowIndex<4){
-                    nowIndex++;
-                    move(nowIndex);
-                }
-                break;
-        }
-
+       },200)
         //禁止默认行为
         event.preventDefault && event.preventDefault();
         return false;
