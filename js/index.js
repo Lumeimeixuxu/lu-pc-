@@ -38,7 +38,7 @@ window.addEventListener('DOMContentLoaded',function () {
 
         headerUlNode.style.top=-nowIndex*contentHeight+'px';
     }
-
+    move(4);
     contentHandle();
     function contentHandle() {
 
